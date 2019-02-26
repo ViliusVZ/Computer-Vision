@@ -2,41 +2,44 @@ using OpenCvSharp;
 using OpenCvSharp.CPlusPlus;
 using System.Linq;
 
+// Because of .gitignore, packages, bin files and executables are not included.
+// To use:
+// 1. Go to nuget package manager and and uninstall OpenCvSharp
+// 2. Open nuget package manager console and use the command below 
+// 3. Make sure to have a camera connected
+// 4. Build and run
+// Install-Package OpenCvSharp-AnyCPU -Version 2.4.10.20170306
+
 namespace Images
 {
-    internal class Histograms
+    public static class Histograms
     {
         private static void Main(string[] args)
         {
-            var image = Cv2.ImRead(@"C:\Users\viliu\Documents\download.jpg", LoadMode.Color);
-            Mat histogramArea = new Mat(new Size(256, 330), MatType.CV_8UC3, Scalar.White);
+            Mat capturedImage = new Mat();
+            Mat histogramArea = new Mat(new Size(150, 200), MatType.CV_8UC3, Scalar.White);
+            Window histogramWindow = new Window("Histogram", WindowMode.FreeRatio);
+            Window videoCaptureWindow = new Window("Video capture", WindowMode.FreeRatio);
+            VideoCapture capture = new VideoCapture();
 
-            Window showImgWindow = new Window("Nicole", WindowMode.FreeRatio) { Image = image };
-            Window histwindow = new Window("histogram", WindowMode.FreeRatio)
-                { Image = MakeBgrHistogram(histogramArea, image) };
+            capture.Open(0);
 
-            VideoCapture cap = new VideoCapture(0);
-
-            while (true)
+            do
             {
-                cap.Read(image);
-                showImgWindow.Image = image;
-                histwindow.Image = new Mat(new Size(256, 330), MatType.CV_8UC3, Scalar.White);
-                histwindow.Image = MakeBgrHistogram(histogramArea, image);
-
-                if (Cv2.WaitKey(10) == 'q')
+                if (capture.Read(capturedImage))
                 {
-                    break;
+                    // Clear background
+                    histogramArea = new Mat(new Size(256, 330), MatType.CV_8UC3, Scalar.White);
+                    // Show the video
+                    videoCaptureWindow.Image = capturedImage;
+                    // Set histogram window image to histogram
+                    histogramWindow.ShowImage(MakeBgrHistogram(histogramArea, capturedImage));
                 }
             }
-            cap.Release();
-            showImgWindow.Close();
-
-
-            Cv2.WaitKey();
-
-            showImgWindow.Close();
-            histwindow.Close();
+            while (Cv2.WaitKey(10) != 'q');
+            capture.Release();
+            histogramWindow.Close();
+            videoCaptureWindow.Close();
         }
 
         private static void DoSomeCalculations(Mat img, float[] value)
@@ -52,7 +55,7 @@ namespace Images
             }
         }
 
-        private static Mat MakeBgrHistogram(Mat histogramArea, Mat image)
+        private static Mat MakeBgrHistogram(Mat drawnHistogram, Mat image)
         {
             Mat blueImage = new Mat();
             Mat greenImage = new Mat();
@@ -88,15 +91,15 @@ namespace Images
 
             for (int i = 0; i < 256 - 1; i++)
             {
-                Cv2.Line(histogramArea, new Point(i, 100 - (int)histValueBlue[i]),
+                Cv2.Line(drawnHistogram, new Point(i, 100 - (int)histValueBlue[i]),
                     new Point(i + 1, 100 - (int)histValueBlue[i + 1]), Scalar.Blue, 1);
-                Cv2.Line(histogramArea, new Point(i, 100 - (int)histValueGreen[i]),
+                Cv2.Line(drawnHistogram, new Point(i, 100 - (int)histValueGreen[i]),
                     new Point(i + 1, 100 - (int)histValueGreen[i + 1]), Scalar.Green, 1);
-                Cv2.Line(histogramArea, new Point(i, 100 - (int)histValueRed[i]),
+                Cv2.Line(drawnHistogram, new Point(i, 100 - (int)histValueRed[i]),
                     new Point(i + 1, 100 - (int)histValueRed[i + 1]), Scalar.Red, 1);
             }
 
-            return histogramArea;
+            return drawnHistogram;
         }
     }
 }
