@@ -1,5 +1,6 @@
 using OpenCvSharp;
 using OpenCvSharp.CPlusPlus;
+using System;
 using System.Linq;
 
 // Because of .gitignore, packages, bin files and executables are not included.
@@ -17,7 +18,6 @@ namespace Images
         private static void Main(string[] args)
         {
             Mat capturedImage = new Mat();
-            Mat histogramArea = new Mat(new Size(150, 200), MatType.CV_8UC3, Scalar.White);
             Window histogramWindow = new Window("Histogram", WindowMode.FreeRatio);
             Window videoCaptureWindow = new Window("Video capture", WindowMode.FreeRatio);
             VideoCapture capture = new VideoCapture();
@@ -28,12 +28,16 @@ namespace Images
             {
                 if (capture.Read(capturedImage))
                 {
-                    // Clear background
-                    histogramArea = new Mat(new Size(256, 330), MatType.CV_8UC3, Scalar.White);
                     // Show the video
                     videoCaptureWindow.Image = capturedImage;
-                    // Set histogram window image to histogram
-                    histogramWindow.ShowImage(MakeBgrHistogram(histogramArea, capturedImage));
+
+                    // Set histogram window image to histogram and dispose
+                    using (var bgrHistogram = MakeBgrHistogram(new Mat(new Size(256, 330), MatType.CV_8UC3, Scalar.White), capturedImage))
+                    {
+                        histogramWindow.ShowImage(bgrHistogram);
+                        bgrHistogram.Release();
+                        GC.Collect();
+                    }
                 }
             }
             while (Cv2.WaitKey(10) != 'q');
@@ -55,7 +59,7 @@ namespace Images
             }
         }
 
-        private static Mat MakeBgrHistogram(Mat drawnHistogram, Mat image)
+        private static Mat MakeBgrHistogram(Mat histogram, Mat image)
         {
             Mat blueImage = new Mat();
             Mat greenImage = new Mat();
@@ -91,15 +95,15 @@ namespace Images
 
             for (int i = 0; i < 256 - 1; i++)
             {
-                Cv2.Line(drawnHistogram, new Point(i, 100 - (int)histValueBlue[i]),
+                Cv2.Line(histogram, new Point(i, 100 - (int)histValueBlue[i]),
                     new Point(i + 1, 100 - (int)histValueBlue[i + 1]), Scalar.Blue, 1);
-                Cv2.Line(drawnHistogram, new Point(i, 100 - (int)histValueGreen[i]),
+                Cv2.Line(histogram, new Point(i, 100 - (int)histValueGreen[i]),
                     new Point(i + 1, 100 - (int)histValueGreen[i + 1]), Scalar.Green, 1);
-                Cv2.Line(drawnHistogram, new Point(i, 100 - (int)histValueRed[i]),
+                Cv2.Line(histogram, new Point(i, 100 - (int)histValueRed[i]),
                     new Point(i + 1, 100 - (int)histValueRed[i + 1]), Scalar.Red, 1);
             }
 
-            return drawnHistogram;
+            return histogram;
         }
     }
 }
