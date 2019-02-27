@@ -32,7 +32,7 @@ namespace Images
                     videoCaptureWindow.Image = capturedImage;
 
                     // Set histogram window image to histogram and dispose
-                    using (var bgrHistogram = MakeBgrHistogram(new Mat(new Size(256, 330), MatType.CV_8UC3, Scalar.White), capturedImage))
+                    using (var bgrHistogram = MakeBgrHistogram(new Mat(new Size(256, 110), MatType.CV_8UC3, Scalar.White), capturedImage))
                     {
                         histogramWindow.ShowImage(bgrHistogram);
                         bgrHistogram.Release();
