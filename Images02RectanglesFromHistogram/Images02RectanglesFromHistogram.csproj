@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3F63006A-C5B4-475E-B7BB-CECB0BFCF657}</ProjectGuid>
+    <ProjectGuid>{B193B7B1-822A-402E-9180-84542366E50A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Images</RootNamespace>
     <AssemblyName>Images</AssemblyName>
