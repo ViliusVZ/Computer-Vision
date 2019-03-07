@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Images01HistogramsFromVideo", "Images01HistogramsFromVideo\Images01HistogramsFromVideo.csproj", "{3F63006A-C5B4-475E-B7BB-CECB0BFCF657}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Images02RectanglesFromHistogram", "Images02RectanglesFromHistogram\Images02RectanglesFromHistogram.csproj", "{B193B7B1-822A-402E-9180-84542366E50A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Images03", "Images03\Images03.csproj", "{59A77D0A-2337-4D3C-821D-7163ED1E6B02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Images03Statistics", "Images03\Images03Statistics.csproj", "{59A77D0A-2337-4D3C-821D-7163ED1E6B02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Images04", "Images04\Images04.csproj", "{4849E280-5EC6-4331-A362-F0F2A8227C69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{59A77D0A-2337-4D3C-821D-7163ED1E6B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59A77D0A-2337-4D3C-821D-7163ED1E6B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59A77D0A-2337-4D3C-821D-7163ED1E6B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4849E280-5EC6-4331-A362-F0F2A8227C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4849E280-5EC6-4331-A362-F0F2A8227C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4849E280-5EC6-4331-A362-F0F2A8227C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4849E280-5EC6-4331-A362-F0F2A8227C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
