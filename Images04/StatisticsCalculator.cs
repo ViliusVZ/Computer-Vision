@@ -1,9 +1,7 @@
-﻿using OpenCvSharp;
-using OpenCvSharp.CPlusPlus;
-using System;
+﻿using System;
 using System.Linq;
 
-namespace Images
+namespace Images04
 {
     public static class StatisticsCalculator
     {

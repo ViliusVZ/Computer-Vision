@@ -1,7 +1,7 @@
-using OpenCvSharp;
-using OpenCvSharp.CPlusPlus;
 using System;
 using System.Linq;
+using OpenCvSharp;
+using OpenCvSharp.CPlusPlus;
 
 // Because of .gitignore, packages, bin files and executables are not included.
 // To use:
@@ -11,7 +11,7 @@ using System.Linq;
 // 4. Build and run
 // Install-Package OpenCvSharp-AnyCPU -Version 2.4.10.20170306
 
-namespace Images
+namespace Images04
 {
     public static class Histograms
     {
